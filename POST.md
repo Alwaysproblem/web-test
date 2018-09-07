@@ -13,7 +13,7 @@
 
 * room type (singal room/ double room/ multiple)
 
-* house class
+* Star ratings
 
 * check in / out date
 
