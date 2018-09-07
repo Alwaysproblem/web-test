@@ -9,6 +9,12 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 
+def address_for(Rooms, Streets, Suburb, State, Postcode):
+    """
+    forming the real address.
+    """
+    pass
+
 def tupletodict(keys, tup):
     return dict(zip(keys, tup))
 
@@ -17,7 +23,6 @@ def comd_gen(Pform):
         cmd = f"INSERT INTO info VALUES (\"{Pform.Name.data}\", \"Male\", \"{Pform.Weight.data}kg\")"
     elif Pform.Female.data is True:
         cmd = f"INSERT INTO info VALUES (\"{Pform.Name.data}\", \"Female\", \"{Pform.Weight.data}kg\")"
-    # cmd = f"INSERT INTO info VALUES (\"{Pform.Name.data}\", \"Female\", \"{Pform.Weight.data}kg\")"
     return cmd
 
 @app.route("/")
@@ -54,22 +59,22 @@ def add():
 if __name__ == '__main__':
     conn = sqlite3.connect('info.db', detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread = False)
     with conn:
-        conn.execute("""CREATE TABLE IF NOT EXISTS Info (
-                    Name    varchar(20),
-                    Gender  varchar(20),
-                    Weight   varchar(20)
-                )""")
-        # conn.execute("""create table hotel (
-        #                 ID int primary key not null,
-        #                 hotelid char(50) not null,
-        #                 usermail char(50),
-        #                 hotel char(50),
-        #                 hotel_suburb char(50),
-        #                 check_in_date char(50),
-        #                 check_out_date char(50),
-        #                 hotel_class char(50),
-        #                 room_type char(50),
-        #                 price int(50));
-        #                 """)
+        # conn.execute("""CREATE TABLE IF NOT EXISTS Info (
+        #             Name    varchar(20),
+        #             Gender  varchar(20),
+        #             Weight   varchar(20)
+        #         )""")
+        conn.execute("""create table hotel (
+                        ID int primary key not null,
+                        hotelid char(50) not null,
+                        usermail char(50),
+                        hotel char(50),
+                        hotel_suburb char(50),
+                        check_in_date char(50),
+                        check_out_date char(50),
+                        hotel_class char(50),
+                        room_type char(50),
+                        price int(50));
+                        """)
     conn.close()
     app.run(debug = True, port=37722)
