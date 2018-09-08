@@ -27,14 +27,14 @@ class PersonForm(FlaskForm):
                     ('5', '5')
                 ])
     check_in_date = DateField(
-                "CheckIn Date", 
+                "CheckIn Date(DD/MM/YY)", 
                 validators=[DataRequired()],
                 format='%D/%m/%Y')
     check_out_date = DateField(
-                "CheckOut Date", 
+                "CheckOut Date(DD/MM/YY)", 
                 validators=[DataRequired()],
                 format='%D/%m/%Y')
-    Price = StringField("Renting Price", validators=[DataRequired()])
+    Price = IntegerField("Renting Price per week", validators=[DataRequired()])
 
     # Name = StringField("Name", validators=[DataRequired()])
     # Male = BooleanField("Male")

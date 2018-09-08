@@ -8,6 +8,36 @@ import uuid
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
+keys = [
+    "UserEmail", 
+    "HouseID", 
+    "RoomNo",
+    "Street",
+    "Suburb",
+    "State",
+    "Postcode",
+    "RoomType",
+    "Star",
+    "CheckIn",
+    "CheckOut",
+    "Price"
+    ]
+
+info_tuples = (
+    "regan@gmail.com",
+    '8b4e8226-dd15-46a4-80af-e14a995a38d3',
+    "unit 1704",
+    "39 Rhodes",
+    "Hillsdale",
+    "NSW",
+    "2036",
+    "double",
+    "5",
+    "12/2/2018",
+    "12/12/2018",
+    780
+)
+
 
 def address_for(Rooms, Streets, Suburb, State, Postcode):
     """
@@ -30,9 +60,25 @@ def comd_gen(Pform):
 def show():
     conn = sqlite3.connect("info.db")
     cur = conn.cursor()
-    keys = ["Name", "Gender", "Weight"]
-    info_tuples = cur.execute("""SELECT * FROM info;""")
-    posts = [tupletodict(keys, tup) for tup in info_tuples]
+    # keys = [
+    #     "UserEmail", 
+    #     "HouseID", 
+    #     "RoomNo",
+    #     "Street",
+    #     "Suburb",
+    #     "State",
+    #     "Postcode",
+    #     "RoomType",
+    #     "Star",
+    #     "CheckIn",
+    #     "CheckOut",
+    #     "Price"
+    #     ]
+    # info_tuples = cur.execute("""SELECT * FROM info;""")
+    # posts = [tupletodict(keys, tup) for tup in info_tuples]
+
+    posts=[tupletodict(keys,info_tuples)] ## just for test.
+    
     print(posts)
     conn.close()
     return render_template('show.html', posts=posts)
@@ -42,9 +88,6 @@ def show():
 def add():
     AcForm = PersonForm()
     if AcForm.validate_on_submit():
-
-        print(f"the Credits is {AcForm.Credits.data}")
-
         cmd_db = comd_gen(AcForm)
         conn = sqlite3.connect("info.db")
         cur = conn.cursor()
@@ -64,10 +107,10 @@ if __name__ == '__main__':
         #             Gender  varchar(20),
         #             Weight   varchar(20)
         #         )""")
-        conn.execute("""create table hotel (
+        conn.execute("""create table if not exists hotel (
                         ID int primary key not null,
                         hotelid char(50) not null,
-                        usermail char(50),
+                        useremail char(50),
                         hotel char(50),
                         hotel_suburb char(50),
                         check_in_date char(50),
