@@ -15,25 +15,33 @@ class PersonForm(FlaskForm):
     Suburb = StringField("Suburb", validators=[DataRequired()])
     State = StringField("State", validators=[DataRequired()])
     Postcode = StringField("Postcode", validators=[DataRequired()])
-    RoomType = SelectField("Room Type", validators=[DataRequired()])
+    RoomType = SelectField(
+            "Room Type", 
+            validators=[DataRequired()],
+            choices=[
+                ("Single Room", "Single Room"),
+                ("Double Room", "Double Room"),
+                ("Multiple Room", "Multiple Room")
+            ]
+        )
     Star = SelectField(
                 "Star Ratings", 
                 validators=[DataRequired()],
                 choices=[
-                    ('1', '1'),
-                    ('2', '2'),
-                    ('3', '3'),
-                    ('4', '4'),
-                    ('5', '5')
+                    ('1', '*'),
+                    ('2', '**'),
+                    ('3', '***'),
+                    ('4', '****'),
+                    ('5', '*****')
                 ])
     check_in_date = DateField(
                 "CheckIn Date(DD/MM/YY)", 
                 validators=[DataRequired()],
-                format='%D/%m/%Y')
+                format='%d/%m/%Y')
     check_out_date = DateField(
                 "CheckOut Date(DD/MM/YY)", 
                 validators=[DataRequired()],
-                format='%D/%m/%Y')
+                format='%d/%m/%Y')
     Price = IntegerField("Renting Price per week", validators=[DataRequired()])
 
     # Name = StringField("Name", validators=[DataRequired()])
@@ -43,5 +51,5 @@ class PersonForm(FlaskForm):
     # Credits = SelectField(
     #     "Credits", 
     #     choices=[("PS", "50"), ("CR", "65"), ("D", "75"), ("HD", "85")])
-    # submit = SubmitField("Submit")
+    submit = SubmitField("Submit")
 
